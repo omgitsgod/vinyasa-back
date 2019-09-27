@@ -6,7 +6,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://vinyasa.netlify.com',
+//  origin: 'https://vinyasa.netlify.com',
+    origin: '*'
 //  credentials: true
 }));
 
