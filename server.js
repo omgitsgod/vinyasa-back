@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
-const { connectDb, models } = require('./models');
+const { connectDb } = require('./models');
 
 const app = express();
 const port = process.env.PORT || 5000;
