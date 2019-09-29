@@ -16,8 +16,8 @@ routes.post('/saveUser', (req, res) => {
             if (err) {
               console.log(err);
             } else {
-              console.log('saving user...');
-              res.status(200).send('saving user');
+              console.log('saving routine...');
+              res.status(200).send('saving routine');
             }
           });
 });
