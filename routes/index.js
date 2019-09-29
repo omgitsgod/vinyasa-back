@@ -6,7 +6,7 @@ routes.get('/', (req, res) => {
   res.status(200).send('Vinyasa Flow');
 });
 
-routes.post('/saveUser', (req, res) => {
+routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const routine = new Routine({
     date: body.date,
@@ -21,5 +21,7 @@ routes.post('/saveUser', (req, res) => {
             }
           });
 });
+
+routines.get()
 
 module.exports = routes;
