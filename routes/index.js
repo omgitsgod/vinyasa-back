@@ -7,7 +7,7 @@ routes.get('/', (req, res) => {
 });
 
 routes.post('/saveUser', (req, res) => {
-  const body = JSON.parse(req.body);
+  const body = req.body;
   const routine = new Routine({
     date: body.date,
     routine: body.routines
