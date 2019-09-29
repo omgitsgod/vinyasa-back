@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const routes = require('./routes');
 const { connectDb, models } = require('./models');
 
@@ -11,6 +12,7 @@ app.use(cors({
     origin: '*'
 //  credentials: true
 }));
+app.use(bodyParser.json());
 
 connectDb()
   .then(() => console.log('connection to DB succesful'))
