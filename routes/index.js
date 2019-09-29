@@ -5,7 +5,7 @@ routes.get('/', (req, res, next) => {
   res.status(200).send('Vinyasa Flow');
 });
 
-routes.get('/saveUser', (req, res, next) => {
+routes.post('/saveUser', (req, res, next) => {
   console.log(req.body);
   res.status(200).send('Vinyasa Flow');
 });
