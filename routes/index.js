@@ -8,6 +8,11 @@ routes.get('/', (req, res) => {
 
 routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
+  const date = body.datey;
+  if (Routine.findOne({ date }
+  )) {
+    Routine.replace({ date }, 'routine': body.routines);
+  } else {
   const routine = new Routine({
     date: body.datey,
     routine: body.routines
@@ -20,6 +25,7 @@ routes.post('/saveRoutine', (req, res) => {
               res.status(200).send('saving routine');
             }
           });
+  }
 });
 
 routes.get('/loadRoutine/:month/:day', (req, res) => {
