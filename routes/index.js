@@ -22,6 +22,9 @@ routes.post('/saveRoutine', (req, res) => {
           });
 });
 
-routines.get()
+routes.get('/loadRoutine/:date', (req, res) => {
+  const date = req.params.date;
+  console.log(date);
+});
 
 module.exports = routes;
