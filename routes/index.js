@@ -9,7 +9,7 @@ routes.get('/', (req, res) => {
 routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const routine = new Routine({
-    date: new Date(body.date),
+    date: body.date,
     routine: body.routines
   });
   routine.save((err) => {
@@ -22,10 +22,10 @@ routes.post('/saveRoutine', (req, res) => {
           });
 });
 
-routes.get('/loadRoutine/:date', (req, res) => {
-  const date = req.params.date;
+routes.get('/loadRoutine/:month/:day', (req, res) => {
+  const date = `${req.params.month}/${req.params.day}`;
   console.log(date);
-  res.status(200).send('loading');
+  res.status(200).json('{"routine": "[]"}');
 });
 
 module.exports = routes;

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const routineSchema = new mongoose.Schema({
 date: {
-  type: Date,
+  type: String,
   unique: true
 },
 routine: Array
