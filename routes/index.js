@@ -9,7 +9,7 @@ routes.get('/', (req, res) => {
 routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const routine = new Routine({
-    date: body.date,
+    date: body.datey,
     routine: body.routines
   });
   routine.save((err) => {
