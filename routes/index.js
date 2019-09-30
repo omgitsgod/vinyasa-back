@@ -10,7 +10,14 @@ routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const date = body.datey;
   if (Routine.findOne({ date })) {
-    Routine.replaceOne({ date }, 'routine': body.routines);
+    Routine.replaceOne({ date }, { routine: body.routines }, (err) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log('saving routine...');
+                res.status(200).send('saving routine');
+              }
+            });
   } else {
   const routine = new Routine({
     date: body.datey,
