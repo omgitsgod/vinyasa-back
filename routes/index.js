@@ -25,7 +25,12 @@ routes.post('/saveRoutine', (req, res) => {
 routes.get('/loadRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
   console.log(date);
-  res.status(200).json('{"routine": "[]"}');
+  Routine.findOne({ date }, (err, routine) => {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).json(routine);
+  });
 });
 
 module.exports = routes;
