@@ -25,6 +25,7 @@ routes.post('/saveRoutine', (req, res) => {
 routes.get('/loadRoutine/:date', (req, res) => {
   const date = req.params.date;
   console.log(date);
+  res.status(200).send('loading');
 });
 
 module.exports = routes;
