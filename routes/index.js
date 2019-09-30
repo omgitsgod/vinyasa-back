@@ -9,9 +9,8 @@ routes.get('/', (req, res) => {
 routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const date = body.datey;
-  if (Routine.findOne({ date }
-  )) {
-    Routine.replace({ date }, 'routine': body.routines);
+  if (Routine.findOne({ date })) {
+    Routine.replaceOne({ date }, 'routine': body.routines);
   } else {
   const routine = new Routine({
     date: body.datey,
