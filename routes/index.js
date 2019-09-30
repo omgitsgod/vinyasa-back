@@ -23,7 +23,7 @@ routes.post('/saveRoutine', (req, res) => {
 });
 
 routes.get('/loadRoutine/:date', (req, res) => {
-  const date = new Date(req.params.date);
+  const date = req.params.date;
   console.log(date);
 });
 
