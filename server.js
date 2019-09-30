@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors({
 //  origin: 'https://vinyasa.netlify.com',
-    origin: '*'
+//    origin: '*'
 //  credentials: true
 }));
 app.use(bodyParser.json());
