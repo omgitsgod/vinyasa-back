@@ -8,19 +8,25 @@ routes.get('/', (req, res) => {
 
 routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
-  const routine = new Routine({
-    date: body.datey,
-    routine: body.routines
-  });
-  console.log(routine);
-  routine.save((err) => {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log('saving routine...');
-              res.status(200).send('saving routine');
-            }
-          });
+  const date = body.datey;
+  const routine = body.routines;
+  if (Routine.findOne({ date })) {
+    console.log('Already saved!');
+  } else {
+    const routineDB = new Routine({
+      date,
+      routine
+    });
+    console.log(routineDB);
+    routineDB.save((err) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log('saving routine...');
+                res.status(200).send('saving routine');
+              }
+            });
+  }
 });
 
 routes.get('/loadRoutine/:month/:day', (req, res) => {
