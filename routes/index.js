@@ -50,4 +50,15 @@ routes.get('/loadRoutine/:month/:day', (req, res) => {
   });
 });
 
+routes.get('/deleteRoutine/:month/:day', (req, res) => {
+  const date = `${req.params.month}/${req.params.day}`;
+  console.log(date);
+  Routine.findOne({ date }, (err, routine) => {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).json(routine);
+  }).remove();
+});
+
 module.exports = routes;
