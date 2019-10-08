@@ -52,16 +52,13 @@ routes.get('/loadRoutine/:month/:day', (req, res) => {
 
 routes.delete('/deleteRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
-  const routine = [];
   console.log(date);
-  Routine.findOneAndUpdate({ date }, { routine }, (err, result) => {
+  Routine.findOne({ date }, (err) => {
     if (err) {
       console.log(err);
-    } else {
-      console.log('deleting routine...');
-      res.status(200).send('deleting routine');
     }
-  });
+  }).remove();
+  res.status(200).send('Deleted');
 });
 
 module.exports = routes;
