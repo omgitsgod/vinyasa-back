@@ -53,11 +53,11 @@ routes.get('/loadRoutine/:month/:day', (req, res) => {
 routes.delete('/deleteRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
   console.log(date);
-  Routine.findOne({ date }, (err) => {
+  Routine.findOneAndDelete({ date }, (err) => {
     if (err) {
       console.log(err);
     }
-  }).remove();
+  });
   res.status(200).send('Deleted');
 });
 
