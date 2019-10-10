@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
+const url = require('url');
+const redis = require('redis');
 const redisStore = require('connect-redis')(session);
 const bodyParser = require('body-parser');
 const routes = require('./routes');
@@ -10,8 +12,18 @@ const { connectDb } = require('./models');
 
 const app = express();
 const port = process.env.PORT || 5000;
+const redisURL = url.parse(process.env.REDIS_URL);
+const redisAuth = redisURL.auth.split(':');
+const redisClient = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true });
 require('./config/passport');
 
+redisClient.auth(redisAuth[1], () => console.log('Redis Authorized'));
+redisClient.on('error', (err) => {
+  console.log('Redis error: ', err);
+});
+redisClient.on('connect', () => {
+    console.log('Connected to Redis');
+});
 app.use(session({
   secret: process.env.SECRET,
   name: 'Vinyasa-Flow',
