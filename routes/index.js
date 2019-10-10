@@ -1,5 +1,9 @@
 const routes = require('express').Router();
 const Routine = require('../models/routine');
+const passport = require('passport');
+const { connectDb, models } = require('../models');
+let { logged, loggedIn, liveList } = require('../constants');
+require('../config/passport');
 
 routes.get('/', (req, res) => {
   console.log('Accessing Index');
@@ -60,5 +64,39 @@ routes.delete('/deleteRoutine/:month/:day', (req, res) => {
   });
   res.status(200).send('Deleted');
 });
+
+routes.get(
+  '/auth/google',
+	passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+routes.get(
+	'/auth/google/callback',
+	passport.authenticate('google', { failureRedirect: process.env.CLIENT, session: true }),
+	(req, res) => {
+    const user = req.user;
+		const token = user.token;
+    req.session.user = req.user;
+    console.log('id: ', req.session.id);
+    console.log('session: ', req.session);
+    logged.push(user);
+    loggedIn.includes(user) ? null : loggedIn.push(user);
+    console.log('Getting User:', loggedIn.map(x => x.name));
+		res.redirect(`${process.env.CLIENT}`);
+	}
+);
+
+routes.get(
+  '/logout/', (req, res) => {
+    console.log('logging out: ', loggedIn.filter(x => x.token === req.session.user.token)[0].name);
+    loggedIn = loggedIn.filter(x => x.token !== req.session.user.token);
+    console.log('currently online: ', loggedIn.map(x => x.name));
+    req.session.destroy((err) => console.log(err));
+    res.sendStatus(200);
+	}
+);
+
+routes.loggedIn = loggedIn;
+routes.logged = logged;
 
 module.exports = routes;

@@ -1,16 +1,32 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const passport = require('passport');
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const { connectDb } = require('./models');
 
 const app = express();
 const port = process.env.PORT || 5000;
+require('./config/passport');
 
+app.use(session({
+  secret: process.env.SECRET,
+  name: 'Vinyasa-Flow',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false, maxAge: 600000 },
+  store: new redisStore({ url: process.env.REDIS_URL }),
+  clear: (err) => console.log(err)
+}));
+app.set('trust proxy');
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors({
-//  origin: 'https://vinyasa.netlify.com',
-//    origin: '*'
-//  credentials: true
+  origin: 'https://vinyasa.netlify.com',
+  credentials: true
 }));
 app.use(bodyParser.json());
 
