@@ -30,7 +30,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false, maxAge: 600000 },
-  store: new redisStore({ url: process.env.REDIS_URL }),
+  store: new redisStore({ url: process.env.REDIS_URL, client: redisClient }),
   clear: (err) => console.log(err)
 }));
 app.set('trust proxy');
