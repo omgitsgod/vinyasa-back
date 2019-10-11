@@ -14,16 +14,15 @@ routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const date = body.datey;
   const routine = body.routines;
-//  const user = req.session.user.email;
+  const user = req.session.user.email;
   const temp = { date, routine };
   const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-  Routine.findOneAndUpdate({ date }, { routine }, options, (err, result) => {
+  Routine.findOneAndUpdate({ date, date }, { routine }, options, (err, result) => {
     if (err) {
       console.log(err);
     } else {
       console.log('saving routine...');
-      console.log(req.session)
       res.status(200).send('saving routine');
     }
   });
@@ -106,7 +105,7 @@ routes.get(
            console.log('logging in: ', user.name);
            console.log('currently online: ', loggedIn.map(x => x.name));
            res.status(200).json(user);
-         } //else { req.session.destroy((err) => console.log(err)); }
+         } else { req.session.destroy((err) => console.log(err)); }
       }
     });
     }
