@@ -5,6 +5,10 @@ date: {
   type: String,
   unique: true
 },
+user: {
+  type: String,
+  unique: true
+},
 routine: Array
 });
 
