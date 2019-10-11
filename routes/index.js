@@ -14,10 +14,11 @@ routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const date = body.datey;
   const routine = body.routines;
+  const user = req.user.email;
   const temp = { date, routine };
   const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-  Routine.findOneAndUpdate({ date }, { routine }, options, (err, result) => {
+  Routine.findOneAndUpdate({ date, user }, { routine }, options, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -45,8 +46,9 @@ routes.post('/saveRoutine', (req, res) => {
 
 routes.get('/loadRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
+  const user = req.user.email;
   console.log(date);
-  Routine.findOne({ date }, (err, routine) => {
+  Routine.findOne({ date, user }, (err, routine) => {
     if (err) {
       console.log(err);
     }
@@ -56,8 +58,9 @@ routes.get('/loadRoutine/:month/:day', (req, res) => {
 
 routes.delete('/deleteRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
+  const user = req.user.email;
   console.log(date);
-  Routine.findOneAndDelete({ date }, (err) => {
+  Routine.findOneAndDelete({ date, user }, (err) => {
     if (err) {
       console.log(err);
     }
