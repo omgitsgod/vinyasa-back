@@ -14,15 +14,16 @@ routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const date = body.datey;
   const routine = body.routines;
-  const user = req.session.user.email;
+//  const user = req.session.user.email;
   const temp = { date, routine };
   const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
-  Routine.findOneAndUpdate({ date, user }, { routine }, options, (err, result) => {
+  Routine.findOneAndUpdate({ date }, { routine }, options, (err, result) => {
     if (err) {
       console.log(err);
     } else {
       console.log('saving routine...');
+      console.log(req.session)
       res.status(200).send('saving routine');
     }
   });
