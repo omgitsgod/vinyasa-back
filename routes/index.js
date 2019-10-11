@@ -14,7 +14,7 @@ routes.post('/saveRoutine', (req, res) => {
   const body = req.body;
   const date = body.datey;
   const routine = body.routines;
-  const user = req.user.email;
+  const user = req.session.user.email;
   const temp = { date, routine };
   const options = { upsert: true, new: true, setDefaultsOnInsert: true };
 
@@ -46,7 +46,7 @@ routes.post('/saveRoutine', (req, res) => {
 
 routes.get('/loadRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
-  const user = req.user.email;
+  const user = req.session.user.email;
   console.log(date);
   Routine.findOne({ date, user }, (err, routine) => {
     if (err) {
@@ -58,7 +58,7 @@ routes.get('/loadRoutine/:month/:day', (req, res) => {
 
 routes.delete('/deleteRoutine/:month/:day', (req, res) => {
   const date = `${req.params.month}/${req.params.day}`;
-  const user = req.user.email;
+  const user = req.session.user.email;
   console.log(date);
   Routine.findOneAndDelete({ date, user }, (err) => {
     if (err) {
