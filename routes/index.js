@@ -7,8 +7,9 @@ let { logged, loggedIn, liveList } = require('../constants');
 require('../config/passport');
 
 routes.get('/', (req, res) => {
-  console.log('Accessing Index');
-  res.status(200).send('Vinyasa Flow');
+  if (req.session.passport) {
+      res.redirect('/getUser');
+  } else { req.session.destroy((err) => console.log(err)); }
 });
 
 routes.post('/saveRoutine', (req, res) => {
@@ -91,7 +92,7 @@ routes.get(
 );
 
 routes.get(
-  '/getUser', cors(), (req, res) => {
+  '/getUser', (req, res) => {
     if (req.session.passport) {
       console.log('req.session test', req.session);
       console.log('id: ', req.session.id);
