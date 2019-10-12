@@ -1,4 +1,5 @@
 const routes = require('express').Router();
+const cors = require('cors');
 const Routine = require('../models/routine');
 const passport = require('passport');
 const { connectDb, models } = require('../models');
@@ -90,7 +91,7 @@ routes.get(
 );
 
 routes.get(
-  '/getUser', (req, res) => {
+  '/getUser', cors(), (req, res) => {
     if (req.session.passport) {
       console.log('req.session test', req.session);
       console.log('id: ', req.session.id);
